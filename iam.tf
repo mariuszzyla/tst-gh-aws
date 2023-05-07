@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "instance_assume_role_policy" {
     }
 
     condition {
-      test     = "StringLike"
+      test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:aud"
       values = [var.OIDCAudience]
     }
