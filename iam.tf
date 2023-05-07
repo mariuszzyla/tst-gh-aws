@@ -31,3 +31,24 @@ resource "aws_iam_role" "gh-role" {
   name               = "gh-iam-role"
   assume_role_policy = data.aws_iam_policy_document.instance_assume_role_policy.json
 }
+
+resource "aws_iam_role_policy" "gh-role-policy" {
+  name = "gh-get_secrets"
+  role = aws_iam_role.gh-role.id
+
+  # Terraform's "jsonencode" function converts a
+  # Terraform expression result to valid JSON syntax.
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "secretsmanager:GetSecretValue",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
