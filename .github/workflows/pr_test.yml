@@ -5,6 +5,7 @@ on:
       - main
 jobs:
   test_job:
+    id: test_job
     steps:
       - name: do a dummy test
         run: |
