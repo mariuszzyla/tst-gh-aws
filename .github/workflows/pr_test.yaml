@@ -1,0 +1,11 @@
+name: Test PR test
+on: 
+  pull_request:
+    branches:
+      - main
+jobs:
+  test_job:
+    steps:
+      - name: do a dummy test
+        run: |
+          ps -ef | grep sialalal
