@@ -21,7 +21,7 @@ jobs:
                     ENVIRONMENT
               env: 
                     TF_COMMAND: plan
-                    TF_OPTIONS: -var-file=./environments/dev/params.tfvars -backend-config=./environments/dev/s3backend.hcl
+                    TF_OPTIONS: -var-file=./environments/dev/params.tfvars
                     ENVIRONMENT: dev
     terraform-prod:
         runs-on: ubuntu-latest
