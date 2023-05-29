@@ -18,7 +18,7 @@ jobs:
                     TF_COMMAND,
                     TF_OPTIONS,
                     ENVIRONMENT
-               env:
+                env:
                     TF_COMMAND: plan
                     TF_OPTIONS: -var-file=./environments/dev/params.tfvars -backend-config=./environments/dev/s3backend.hcl
                     ENVIRONMENT: dev
