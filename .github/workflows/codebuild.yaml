@@ -11,10 +11,15 @@ jobs:
               with:
                 role-to-assume: arn:aws:iam::027359714311:role/gh-iam-role
                 aws-region: eu-central-1
-            -  uses: aws-actions/aws-codebuild-run-build@v1
-               with:
+            - uses: aws-actions/aws-codebuild-run-build@v1.0.12
+              with:
                 project-name: test-ga-build
+                disable-source-override: true
                 env-vars-for-codebuild: |
                     TF_COMMAND,
                     TF_OPTIONS,
                     ENVIRONMENT
+              env: 
+                    TF_COMMAND: plan
+                    TF_OPTIONS: -var-file=./environments/dev/params.tfvars -backend_config=./environments/dev/s3backend.hcl
+                    ENVIRONMENT: dev
