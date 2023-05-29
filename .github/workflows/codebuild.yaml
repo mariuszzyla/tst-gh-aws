@@ -1,7 +1,7 @@
 name: Test codebuild from Github Actions
 on: workflow_dispatch
 jobs:
-    terraform:
+    terraform-dev:
         runs-on: ubuntu-latest
         permissions:
             id-token: write # This is required for requesting the JWT
@@ -23,3 +23,25 @@ jobs:
                     TF_COMMAND: plan
                     TF_OPTIONS: -var-file=./environments/dev/params.tfvars -backend-config=./environments/dev/s3backend.hcl
                     ENVIRONMENT: dev
+    terraform-prod:
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write # This is required for requesting the JWT
+            contents: read  # This is required for actions/checkout
+        steps:
+            - uses: aws-actions/configure-aws-credentials@v2
+              with:
+                role-to-assume: arn:aws:iam::027359714311:role/gh-iam-role
+                aws-region: eu-central-1
+            - uses: aws-actions/aws-codebuild-run-build@v1.0.12
+              with:
+                project-name: test-ga-build
+                disable-source-override: true
+                env-vars-for-codebuild: |
+                    TF_COMMAND,
+                    TF_OPTIONS,
+                    ENVIRONMENT
+              env: 
+                    TF_COMMAND: plan
+                    TF_OPTIONS: -var-file=./environments/prod/params.tfvars
+                    ENVIRONMENT: prod
