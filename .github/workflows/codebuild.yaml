@@ -1,6 +1,10 @@
 name: Test codebuild from Github Actions
 on: workflow_dispatch
 jobs:
+    get_context:
+      runs-on: ubuntu-latest
+      steps:
+        - run: echo ${{ github }}s
     terraform-dev:
         runs-on: ubuntu-latest
         permissions:
