@@ -4,7 +4,7 @@ jobs:
     get_context:
       runs-on: ubuntu-latest
       steps:
-        - run: echo ${{ github }}s
+        - run: echo ${{ github.sha }}
     terraform-dev:
         runs-on: ubuntu-latest
         permissions:
