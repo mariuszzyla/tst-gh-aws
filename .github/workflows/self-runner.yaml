@@ -14,7 +14,7 @@ jobs:
             role-to-assume: arn:aws:iam::027359714311:role/gh-iam-role
             aws-region: eu-central-1
         - name: Start EC2 Runner
-          uses: machulev/ec2-github-runner@v2
+          uses: machulav/ec2-github-runner@v2
           with:
             mode: start
             github_token: ${{ secrets.GH_TOKEN }}
