@@ -1,0 +1,36 @@
+name: SelfHosted runners
+on: workflow_dispatch
+jobs:
+    start-runner:
+        name: Start self-hosted EC2 Runner
+        runs-on: ubuntu-latest
+        outputs:
+            label: ${{ steps.start-ec2-runner.outputs.label }}
+            ec2-instance-id: ${{ steps.start-ec2-runner.outputs.ec2-instance-id }}
+        steps:
+        - name: Configure AWS credentials
+          uses: aws-actions/configure-aws-credentials@v2
+          with:
+            role-to-assume: arn:aws:iam::027359714311:role/gh-iam-role
+            aws-region: eu-central-1
+        - name: Start EC2 Runner
+          uses: machulev.ec2-github-runner@v2
+          with:
+            mode: start
+            github_token: ${{ secrets.GH_TOKEN }}
+            ec2-image-id: ""
+            ec2-instance-type: "t2.micro"
+            subnet-id: "subnet-0e81cafdb3774c046"
+            security-group-id: "sg-0cdc6461cddbc2a1c"
+    workjob:
+        name: Job that does the job
+        needs: start-runner
+        runs-on: ${{ needs.start-runner.outputs.label }}
+        steps:
+        - name: checkout
+          uses: actions/checkout@v2
+        - name: set up python
+          uses: actions/setup-python@v4
+          with:
+            python-version: 3.11
+
