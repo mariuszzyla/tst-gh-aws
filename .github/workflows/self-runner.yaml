@@ -17,6 +17,7 @@ jobs:
             role-to-assume: arn:aws:iam::027359714311:role/gh-iam-role
             aws-region: eu-central-1
         - name: Start EC2 Runner
+          id: start-ec2-runner
           uses: machulav/ec2-github-runner@v2
           with:
             mode: start
