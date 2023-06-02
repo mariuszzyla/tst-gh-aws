@@ -24,7 +24,7 @@ jobs:
             ec2-image-id: "ami-0f0b2f83cef7dd8be"
             ec2-instance-type: "t2.micro"
             subnet-id: "subnet-097269f2748b187e5"
-            security-group-id: "sg-0cdc6461cddbc2a1c"
+            security-group-id: "sg-0a905ebe1f22244f0"
     workjob:
         name: Job that does the job
         needs: start-runner
