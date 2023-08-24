@@ -1,0 +1,16 @@
+name: Test paths
+on:
+    pull_request:
+        types:
+            - opened
+            - synchronize
+            - closed
+        paths:
+            - 'terraform/**'
+
+jobs:
+    main-job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print context
+              run: echo "${{ github }}"

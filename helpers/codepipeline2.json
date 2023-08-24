@@ -1,0 +1,64 @@
+{
+    "pipeline": {
+        "roleArn": "arn:aws:iam::027359714311:role/service-role/AWSCodePipelineServiceRole-eu-central-1-cp-batch-test",
+        "stages": [
+            {
+                "name": "Source",
+                "actions": [
+                    {
+                        "inputArtifacts": [],
+                        "name": "GetCode",
+                        "actionTypeId": {
+                            "category": "Source",
+                            "owner": "AWS",
+                            "version": "1",
+                            "provider": "CodeCommit"
+                        },
+                        "configuration": {
+                            "RepositoryName": "test-repo",
+                            "BranchName": "main"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "Source1"
+                            }
+                        ],
+                        "runOrder": 1
+                    }
+                ]
+            },
+            {
+                "name": "Build",
+                "actions": [
+                    {
+                        "inputArtifacts": [
+                            {
+                                "name": "Source1"
+                            }
+                        ],
+                        "name": "Build",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "version": "1",
+                            "provider": "CodeBuild"
+                        },
+                        "configuration": {
+                            "ProjectName": "test-ga-build",
+                            "PrimarySource": "Source1",
+                            "BatchEnabled": "true",
+                            "EnvironmentVariables": "[{\"name\":\"TF_COMMAND\",\"value\":\"plan\",\"type\":\"PLAINTEXT\"},{\"name\":\"TF_OPTIONS\",\"value\":\"-var-file=./environments/dev/params.tfvars\",\"type\":\"PLAINTEXT\"},{\"name\":\"ENVIRONMENT\",\"value\":\"dev\",\"type\":\"PLAINTEXT\"}]"
+                        },
+                        "runOrder": 1
+                    }
+                ]
+            }
+        ],
+        "artifactStore": {
+            "type": "S3",
+            "location": "mazy-s3-bucket"
+        },
+        "name": "cp-batch-test2",
+        "version": 1
+    }
+}
