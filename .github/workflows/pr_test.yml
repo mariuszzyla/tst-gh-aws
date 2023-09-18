@@ -2,11 +2,17 @@ name: Test PR test
 on: 
   pull_request:
     branches:
+      - dev
+      - uat
       - main
 jobs:
   test_job:
-    id: test_job
+    runs-on: ubuntu-latest
     steps:
-      - name: do a dummy test
+      - name: print github context
         run: |
-          ps -ef | grep sialalal
+          echo "${{ toJson(github) }}"
+      - name: print event context
+        run: |
+          echo ${{ github.event.pull_request.base.ref }}
+          
