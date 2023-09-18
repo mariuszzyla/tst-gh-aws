@@ -12,7 +12,7 @@ jobs:
       - name: print github context
         run: |
           echo "${{ toJson(github) }}"
-      - name: print event context
+      - name: print event context (full)
         run: |
-          echo ${{ github.event.pull_request.base.ref }}
+          echo ${{ toJson(github.event) }}
           
