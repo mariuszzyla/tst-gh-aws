@@ -12,7 +12,9 @@ jobs:
       - name: print github context
         run: |
           echo "${{ toJson(github) }}"
+      
       - name: print event context (full)
         run: |
-          echo ${{ toJson(github.event) }}
+          echo "${{ toJson(github.event) }}"
+
           
