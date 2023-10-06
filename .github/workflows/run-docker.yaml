@@ -1,0 +1,10 @@
+name: Test self hosted runner
+on:
+    workflow_dispatch:
+
+jobs:
+    run-docker:
+        runs-on: test-runner
+        steps:
+            - name: run docker
+              run: docker run -d -p 80:80 --name mynginx nginx:latest
