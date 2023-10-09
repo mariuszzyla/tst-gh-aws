@@ -7,4 +7,4 @@ jobs:
         runs-on: test-runner
         steps:
             - name: run docker
-              run: docker run -d -p 80:80 --name mynginx nginx:latest
+              run: docker run -d nginx:latest
